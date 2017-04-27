@@ -16,7 +16,7 @@ options = ''
 
 while options != "0":
 
-     print(tabulate([['==FTP== :','1) Get Ftp Infos.' ,'2) Set Ftp Infos.','3) Test Ftp.'],[''],['==User== :','4) Get Users Infos.' ,'5) Set Users Infos.'],[''],['==System== :','6) Get Server Infos.' ,'7) Get Server Time.','8) Set Server Time.','9) Get Ntp Infos.','10) Set Ntp Infos.','11) Get Device infos.','12) Set Device infos.','13) Set size snapshot.','14) Reboot Device.','15) Reset Device.','16) Get Logs.','17) Delete Logs.'],[''],['==PTZ== :','18) Move Up.' ,'19) Move Down.','20) Move Left.','21) Move Right.'],[""],['==Motion Detection== :','22) Get Alarm Infos' ,'23) Set Alarm Detections.','24) Get Motion Detections Infos.','25) Set Motion Detections Infos.'],[''],['==Video/Audio==','26) Get Video Infos.','27) Get Image Infos','28) Set Video Infos','29) Set Image Infos','30) Get Overlay Attribute Time','31) Get Overlay Attribute Name','32) Set Overlay Attribute Time','33) Set Overlay Attribute Name','34) Get Volume Out .','35) Set Volume Out','36) Get Volume In','37) Set Volume In.'],[''],['==Infra Red==','38) Get Ir infos.','39) Set Ir Infos.'],[''],["==Network==",'40) Get Network Infos.','41) Get Onvif Infos.','42) Get Rtsp Port.'],['==Exit== :','0)Exit.']]))
+     print(tabulate([['==FTP== :','1) Get Ftp Infos.' ,'2) Set Ftp Infos.','3) Test Ftp.'],[''],['==User== :','4) Get Users Infos.' ,'5) Set Users Infos.'],[''],['==System== :','6) Get Server Infos.' ,'7) Get Server Time.','8) Set Server Time.','9) Get Ntp Infos.','10) Set Ntp Infos.','11) Get Device infos.','12) Set Device infos.','13) Reboot Device.','14) Reset Device.','15) Get Logs.','16) Delete Logs.'],[''],['==PTZ== :','17) Move Up.' ,'18) Move Down.','19) Move Left.','20) Move Right.'],[""],['==Motion Detection== :','21) Get Alarm Infos' ,'22) Set Alarm Detections.','23) Get Motion Detections Infos.','24) Set Motion Detections Infos.','25) Get Alarm Snap Count.','26) Set Alarm Snap Count.','27) Get Snapshot Infos','28) Set Snapshot Infos'],[''],['==Video==','29) Get Video Infos.','30) Get Image Infos','31) Set Video Infos','32) Set Image Infos','33) Get Overlay Attribute Time','34) Get Overlay Attribute Name','35) Set Overlay Attribute Time','36) Set Overlay Attribute Name','37) Get Video Encoder Info','38) Set Video Encoder Info'],[''],['==Audio==','39) Get Volume Out .','40) Set Volume Out','41) Get Volume In','42) Set Volume In.'],[''],['==Infra Red==','43) Get Ir infos.','44) Set Ir Infos.'],[''],["==Network==",'45) Get Network Infos.','46) Get Onvif Infos.','47) Get Rtsp Port.'],['==Exit== :','0)Exit.']]))
 
      options = input('Please choose an option : ')
 
@@ -233,31 +233,12 @@ while options != "0":
                print()
                print("Error : ",e)
 
+
+
      if options  == "13":
 
-          print("\nExample:\n")
-          print("-chn=011 or -chn=012 or -chn=013")
-          cmd = input("\nEnter cmd :\n")
-          
           try:
-               query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=setservertime&'+str(cmd)+'&usr='+str(user)+'&pwd='+str(passwd)
-               opener = urllib.request.build_opener()
-               opener.addheaders = [('User-Agent', str(UserAgent))]
-               send = opener.open(query)
-               soup = BeautifulSoup(send,'lxml')
-               print()
-               print(soup.get_text())
-               print()
-          except Exception as e:
-               print()
-               print("Error : ",e)
-
-
-
-     if options  == "14":
-
-          try:
-               query = "http://"+str(host)+'/cgi-bin/hi3510/sysreboot.cgi&usr='+str(user)+'&pwd='+str(passwd)
+               query = "http://"+str(host)+'/cgi-bin/hi3510/sysreboot.cgi?&usr='+str(user)+'&pwd='+str(passwd)
                opener = urllib.request.build_opener()
                opener.addheaders = [('User-Agent', str(UserAgent))]
                send = opener.open(query)
@@ -266,18 +247,19 @@ while options != "0":
                print(soup.get_text())
                print()
           except Exception as e:
-               print()
+               print(e)
 
-     if options  == "15":
+     if options  == "14":
 
           try:
-               ask =''
-               while ask.lower() != "y" or ask.lower() != "n": 
-                    ask = input("Are you sure you want to reset the device ?? Y/n")
-               if ask.lower() == "y":
+               ask =""
+               while ask not in ("y","n"): 
+                    ask = input("Are you sure you want to reset the device ?? y/n\n")
+                    ask = str(ask.lower())
+               if ask == "y":
 
 
-                    query = "http://"+str(host)+'/cgi-bin/hi3510/sysreset.cgi&usr='+str(user)+'&pwd='+str(passwd)
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/sysreset.cgi?&usr='+str(user)+'&pwd='+str(passwd)
                     opener = urllib.request.build_opener()
                     opener.addheaders = [('User-Agent', str(UserAgent))]
                     send = opener.open(query)
@@ -290,7 +272,7 @@ while options != "0":
 
 
 
-     if options  == "16":
+     if options  == "15":
 
           try:
                query = "http://"+str(host)+'/log/syslog.txt'
@@ -306,13 +288,14 @@ while options != "0":
 
 
 
-     if options  == "17":
+     if options  == "16":
 
           try:
-               ask =''
-               while ask.lower() != "y" or ask.lower() != "n": 
-                    ask = input("Are you sure you want to delete the logs ?? Y/n")
-               if ask.lower() == "y":
+               ask =""
+               while ask not in ("y","n"): 
+                    ask = input("Are you sure you want to delete the logs ?? y/n\n")
+                    ask = str(ask.lower())
+               if ask == "y":
 
 
                     query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=cleanlog&-name=sys&usr='+str(user)+'&pwd='+str(passwd)
@@ -327,7 +310,7 @@ while options != "0":
                print()
 
 
-     if options  == "18":
+     if options  == "17":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/ptzup.cgi?&usr='+str(user)+'&pwd='+str(passwd)
@@ -342,7 +325,7 @@ while options != "0":
                print()
                print("Error: ",e)
 
-     if options  == "19":
+     if options  == "18":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/ptzdown.cgi?&usr='+str(user)+'&pwd='+str(passwd)
@@ -358,7 +341,7 @@ while options != "0":
                print("Error: ",e)
 
 
-     if options  == "20":
+     if options  == "19":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/ptzleft.cgi?&usr='+str(user)+'&pwd='+str(passwd)
@@ -373,7 +356,7 @@ while options != "0":
                print()
                print("Error: ",e)
 
-     if options  == "21":
+     if options  == "20":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/ptzright.cgi?&usr='+str(user)+'&pwd='+str(passwd)
@@ -388,7 +371,7 @@ while options != "0":
                print()
                print("Error: ",e)
 
-     if options  == "22":
+     if options  == "21":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getmdalarm&-aname=email&cmd=getmdalarm&-aname=emailsnap&cmd=getmdalarm&-aname=ftpsnap&cmd=getmdalarm&-aname=snap&cmd=getmdalarm&-aname=emailrec&cmd=getmdalarm&-aname=record&cmd=getmdalarm&-aname=ftprec&cmd=getmdalarm&-aname=relay&-aname=server&usr='+str(user)+'&pwd='+str(passwd)
@@ -404,7 +387,7 @@ while options != "0":
                print("Error: ",e)
 
 
-     if options  == "23":
+     if options  == "22":
 
           print("\nExample:\n")
           print("-aname=type&-switch=on&cmd=setmdalarm&-aname=email&-switch=on&cmd=setmdalarm&-aname=snap&-switch=on&cmd=setmdalarm&-aname=record&-switch=on&cmd=setmdalarm&-aname=ftprec&-switch=on&cmd=setmdalarm&-aname=relay&-switch=on&cmd=setmdalarm&-aname=ftpsnap&-switch=on")
@@ -425,7 +408,7 @@ while options != "0":
 
 
 
-     if options  == "24":
+     if options  == "23":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getmdattr'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -440,7 +423,7 @@ while options != "0":
                print()
                print("Error: ",e)
 
-     if options  == "25":
+     if options  == "24":
 
           print("\nExample:\n")
           print("-enable=1&-s=50&-name=1&-x=0&-y=0&-w=60&-h=60")
@@ -461,7 +444,80 @@ while options != "0":
 
 
 
+     if options  == "25":
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getalarmsnapattr'+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup = BeautifulSoup(send,'lxml')
+               print()
+               print(soup.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error: ",e)
+
      if options  == "26":
+
+          print("\nExample:\n")
+          print("-snap_count=2")
+          cmd = input("\nEnter cmd :\n")
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=setalarmsnapattr&'+str(cmd)+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup = BeautifulSoup(send,'lxml')
+               print()
+               print(soup.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error : ",e)
+
+
+
+     if options  == "27":
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getsnaptimerattrex'+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup = BeautifulSoup(send,'lxml')
+               print()
+               print(soup.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error: ",e)
+
+     if options  == "28":
+
+          print("\nExample:\n")
+          print("-as_enable=1&-as_interval=60&-as_type=snap")
+          cmd = input("\nEnter cmd :\n")
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=setsnaptimerattrex&'+str(cmd)+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup = BeautifulSoup(send,'lxml')
+               print()
+               print(soup.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error : ",e)
+
+
+
+
+     if options  == "29":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getvideoattr'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -477,7 +533,7 @@ while options != "0":
                print("Error: ",e)
 
 
-     if options  == "27":
+     if options  == "30":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getimageattr'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -492,7 +548,7 @@ while options != "0":
                print()
                print("Error: ",e)
 
-     if options  == "28":
+     if options  == "31":
 
           print("\nExample:\n")
           print("-vinorm=N")
@@ -516,7 +572,7 @@ while options != "0":
 
 
 
-     if options  == "29":
+     if options  == "32":
 
           print("\nExample:\n")
           print("-brightness=1&-saturation=1&-contrast=1&-hue=1&-flip=on&-mirror=on&-scene=indoor&")
@@ -537,7 +593,7 @@ while options != "0":
 
 
 
-     if options  == "30":
+     if options  == "33":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getoverlayattr&-region=0'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -552,7 +608,7 @@ while options != "0":
                print()
                print("Error: ",e)
 
-     if options  == "31":
+     if options  == "34":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getoverlayattr&-region=1'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -569,7 +625,7 @@ while options != "0":
 
 
 
-     if options  == "32":
+     if options  == "35":
 
           print("\nExample:\n")
           print("-show=0")
@@ -588,7 +644,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "33":
+     if options  == "36":
 
           print("\nExample:\n")
           print("-show=0")
@@ -607,8 +663,69 @@ while options != "0":
                print()
                print("Error : ",e)
 
+     if options  == "37":
 
-     if options  == "34":
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/getvencattr.cgi?-chn=11'+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup = BeautifulSoup(send,'lxml')
+               print("\nStream1\n")
+               print(soup.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error : ",e)
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/getvencattr.cgi?-chn=12'+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup1 = BeautifulSoup(send,'lxml')
+               print("\nStream2\n")
+               print(soup1.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error : ",e)
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/getvencattr.cgi?-chn=13'+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup2 = BeautifulSoup(send,'lxml')
+               print("\nStream3\n")
+               print(soup2.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error : ",e)
+
+
+     if options  == "38":
+
+          print("\nExample:\n")
+          print("-chn=11&-bps=1536&-fps=25&-brmode=1&-imagegrade=1&-gop=50")
+          cmd = input("\nEnter cmd :\n")
+
+          try:
+               query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=setvencattr&'+str(cmd)+'&usr='+str(user)+'&pwd='+str(passwd)
+               opener = urllib.request.build_opener()
+               opener.addheaders = [('User-Agent', str(UserAgent))]
+               send = opener.open(query)
+               soup = BeautifulSoup(send,'lxml')
+               print()
+               print(soup.get_text())
+               print()
+          except Exception as e:
+               print()
+               print("Error : ",e)
+
+
+     if options  == "39":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getaudioinvolume'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -623,7 +740,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "35":
+     if options  == "40":
 
           print("\nExample:\n")
           print("-volume=80")
@@ -642,7 +759,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "36":
+     if options  == "41":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getaudiooutvolume'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -657,7 +774,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "37":
+     if options  == "42":
 
           print("\nExample:\n")
           print("-volume=80")
@@ -676,7 +793,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "38":
+     if options  == "43":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getinfrared'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -691,7 +808,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "39":
+     if options  == "44":
 
           print("\nExample:\n")
           print("auto, open and close")
@@ -711,7 +828,7 @@ while options != "0":
                print("Error : ",e)
 
 
-     if options  == "40":
+     if options  == "45":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getnetattr'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -726,7 +843,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "41":
+     if options  == "46":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getonvifattr'+'&usr='+str(user)+'&pwd='+str(passwd)
@@ -741,7 +858,7 @@ while options != "0":
                print()
                print("Error : ",e)
 
-     if options  == "42":
+     if options  == "47":
 
           try:
                query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=getrtspport'+'&usr='+str(user)+'&pwd='+str(passwd)
