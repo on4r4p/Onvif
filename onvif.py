@@ -12,13 +12,322 @@ host = input('Set ip host : ')
 user = input('Set Username : ')
 passwd = input('Set Password : ')
 
+
+
+
+
 options = ''
 
 while options != "0":
 
-     print(tabulate([['==FTP== :','1) Get Ftp Infos.' ,'2) Set Ftp Infos.','3) Test Ftp.'],[''],['==User== :','4) Get Users Infos.' ,'5) Set Users Infos.'],[''],['==System== :','6) Get Server Infos.' ,'7) Get Server Time.','8) Set Server Time.','9) Get Ntp Infos.','10) Set Ntp Infos.','11) Get Device infos.','12) Set Device infos.','13) Reboot Device.','14) Reset Device.','15) Get Logs.','16) Delete Logs.'],[''],['==PTZ== :','17) Move Up.' ,'18) Move Down.','19) Move Left.','20) Move Right.'],[""],['==Motion Detection== :','21) Get Alarm Infos' ,'22) Set Alarm Detections.','23) Get Motion Detections Infos.','24) Set Motion Detections Infos.','25) Get Alarm Snap Count.','26) Set Alarm Snap Count.','27) Get Snapshot Infos','28) Set Snapshot Infos'],[''],['==Video==','29) Get Video Infos.','30) Get Image Infos','31) Set Video Infos','32) Set Image Infos','33) Get Overlay Attribute Time','34) Get Overlay Attribute Name','35) Set Overlay Attribute Time','36) Set Overlay Attribute Name','37) Get Video Encoder Info','38) Set Video Encoder Info'],[''],['==Audio==','39) Get Volume Out .','40) Set Volume Out','41) Get Volume In','42) Set Volume In.'],[''],['==Infra Red==','43) Get Ir infos.','44) Set Ir Infos.'],[''],["==Network==",'45) Get Network Infos.','46) Get Onvif Infos.','47) Get Rtsp Port.'],['==Exit== :','0)Exit.']]))
+     print(tabulate([['==FTP== :','1) Get Ftp Infos.' ,'2) Set Ftp Infos.','3) Test Ftp.'],[''],['==User== :','4) Get Users Infos.' ,'5) Set Users Infos.'],[''],['==System== :','6) Get Server Infos.' ,'7) Get Server Time.','8) Set Server Time.','9) Get Ntp Infos.','10) Set Ntp Infos.','11) Get Device infos.','12) Set Device infos.','13) Reboot Device.','14) Reset Device.','15) Get Logs.','16) Delete Logs.'],[''],['==PTZ== :','17) Move Up.' ,'18) Move Down.','19) Move Left.','20) Move Right.','Rue) Go to center.','Marcel) Go to Marcel.','Garage) Go to garage.','Chemin) Go to Chemin.','Chemin2) Go to Chemin2.','Mamie) Go to Mamie.','SetRue) Set center.','SetMarcel) Set Marcel.','SetGarage) Set garage.','SetChemin) Set Chemin.','SetChemin2) Set Chemin2.','SetMamie) Set Mamie.',],[""],['==Motion Detection== :','21) Get Alarm Infos' ,'22) Set Alarm Detections.','23) Get Motion Detections Infos.','24) Set Motion Detections Infos.','25) Get Alarm Snap Count.','26) Set Alarm Snap Count.','27) Get Snapshot Infos','28) Set Snapshot Infos'],[''],['==Video==','29) Get Video Infos.','30) Get Image Infos','31) Set Video Infos','32) Set Image Infos','33) Get Overlay Attribute Time','34) Get Overlay Attribute Name','35) Set Overlay Attribute Time','36) Set Overlay Attribute Name','37) Get Video Encoder Info','38) Set Video Encoder Info'],[''],['==Audio==','39) Get Volume Out .','40) Set Volume Out','41) Get Volume In','42) Set Volume In.'],[''],['==Infra Red==','43) Get Ir infos.','44) Set Ir Infos.'],[''],["==Network==",'45) Get Network Infos.','46) Get Onvif Infos.','47) Get Rtsp Port.'],['==Exit== :','0)Exit.']]))
 
      options = input('Please choose an option : ')
+
+
+     try:
+          if options.lower()  == "rue":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=1&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+     try:
+          if options.lower()  == "marcel":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=2&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+     try:
+          if options.lower()  == "garage":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=3&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+     try:
+          if options.lower()  == "chemin":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=4&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+
+
+     try:
+          if options.lower()  == "mamie":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=5&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+     try:
+          if options.lower()  == "voisin":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=6&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+     try:
+          if options.lower()  == "kangoo":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=goto&-number=7&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+     try:
+          if options.lower()  == "setkangoo":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=7&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+
+
+
+
+
+     try:
+          if options.lower()  == "setrue":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=1&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+     try:
+          if options.lower()  == "setmarcel":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=2&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+     try:
+          if options.lower()  == "setgarage":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=3&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+     try:
+          if options.lower()  == "setchemin":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=4&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+     try:
+          if options.lower()  == "setmamie":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=5&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+     try:
+          if options.lower()  == "setvoisin":
+
+               try:
+                    query = "http://"+str(host)+'/cgi-bin/hi3510/param.cgi?cmd=preset&-act=set&-status=1&-number=6&usr='+str(user)+'&pwd='+str(passwd)
+                    opener = urllib.request.build_opener()
+                    opener.addheaders = [('User-Agent', str(UserAgent))]
+                    send = opener.open(query)
+                    soup = BeautifulSoup(send,'lxml')
+                    print()
+                    print(soup.get_text())
+                    print()
+               except Exception as e:
+                    print()
+                    print("Error: ",e)
+                    print()
+     except:
+          pass
+
+
+
+
+
+
+
+
+
+
+
 
 
      if options  == "1":
